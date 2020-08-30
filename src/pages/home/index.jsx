@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import './index.css';
-import { sendRequest } from '../../shared/http.util';
-import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
-import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
+import React, { useState, useEffect } from "react";
+import "./index.css";
+import { sendRequest } from "../../shared/http.util";
+import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
+import HighlightOffRoundedIcon from "@material-ui/icons/HighlightOffRounded";
 
 const getMoviesFromRes = (data) => {
   const movies = Object.entries(data).reduce((acc, cur) => {
@@ -31,7 +31,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchRandomMovies = async () => {
       try {
-        const response = await sendRequest('POST', 'getRandom', null, null);
+        const response = await sendRequest("POST", "getRandom", null, null);
         const movies = getMoviesFromRes(response.data);
         setRandomMovies(movies);
         // setIsLoaded(true);
@@ -56,8 +56,8 @@ const HomePage = () => {
             key={movie.name}
             style={{
               backgroundImage: `url(${movie.imgUrl})`,
-              backgroundSize: 'cover',
-              display: index === activeIndex ? 'block' : 'none',
+              backgroundSize: "cover",
+              display: index === activeIndex ? "block" : "none",
             }}
           >
             <div className="movie-info">
