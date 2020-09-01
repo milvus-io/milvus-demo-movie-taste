@@ -103,7 +103,7 @@ const RecommendPage = () => {
         {recommendMovies.map((movie) => {
           return (
             <Card
-              key={movie.name}
+              key={movie.id}
               className={classes.card}
               onClick={() => onCardClick(movie)}
               style={{
