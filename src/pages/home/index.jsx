@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 import { sendRequest } from '../../shared/http.util';
-// import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-// import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { IconButton, makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router';

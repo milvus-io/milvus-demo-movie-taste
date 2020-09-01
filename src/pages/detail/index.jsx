@@ -122,13 +122,6 @@ const DetailPage = () => {
             </div>
 
             <p>{detail.Plot}</p>
-
-            {/* <div>
-              <span className="detail-label">Director:</span> {detail.Director}
-            </div>
-            <div>
-              <span className="detail-label">Actors:</span> {detail.Actors}
-            </div> */}
           </div>
         </section>
       )}
