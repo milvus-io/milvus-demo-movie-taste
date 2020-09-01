@@ -1,31 +1,35 @@
 .home-wrapper {
   flex-grow: 1;
   width: 100%;
+
   display: flex;
   flex-direction: column;
 }
 
 .movie-wrapper {
-  flex-grow: 1;
-  margin: 1rem;
   position: relative;
-}
-
-.movie-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: #000;
-  opacity: 0.5;
+  flex-grow: 1;
 }
 
 .movie-info {
-  color: #fff;
-  position: absolute;
-  left: 10%;
-  bottom: 5%;
-  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  height: calc(100% - 350px - 55px);
+}
+
+.movie-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.movie-poster {
+  max-height: 350px;
+}
+
+.movie-button {
+  flex-shrink: 0;
 }

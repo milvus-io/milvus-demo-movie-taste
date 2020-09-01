@@ -3,8 +3,13 @@
   justify-content: center;
   align-items: center;
 
-  min-height: 10vh;
+  position: fixed;
+  bottom: 0;
+
+  flex-shrink: 0;
   width: 100%;
+  max-width: 414px;
+  background-color: #333;
 }
 
 .title {
@@ -14,4 +19,13 @@
 .subtitle {
   font-size: 10px;
   transform: translateY(2px);
+}
+
+@media screen and (min-height: 825px) {
+  .wrapper {
+    position: fixed;
+    top: 812px;
+
+    height: 55px;
+  }
 }

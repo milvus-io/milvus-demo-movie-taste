@@ -1,31 +1,25 @@
 .app-wrapper {
   text-align: center;
-  height: 100vh;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  color: #fff;
 }
 
 .app-content {
   width: 100%;
-  max-width: 375px;
-  height: 100%;
+  max-width: 414px;
+  height: 100vh;
   max-height: 812px;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  position: relative;
 
-.App-header {
-  background-color: #282c34;
-  min-height: 90vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+
+  background-color: #333;
 }
