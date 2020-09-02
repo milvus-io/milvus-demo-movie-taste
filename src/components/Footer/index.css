@@ -9,7 +9,10 @@
   flex-shrink: 0;
   width: 100%;
   max-width: 414px;
-  background-color: #333;
+
+  padding: 8px 0;
+
+  z-index: 99;
 }
 
 .title {
@@ -24,7 +27,7 @@
 @media screen and (min-height: 825px) {
   .wrapper {
     position: fixed;
-    top: 812px;
+    top: 972px;
 
     height: 55px;
   }

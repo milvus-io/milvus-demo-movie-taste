@@ -1,22 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 import { sendRequest } from '../../shared/http.util';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import CancelIcon from '@material-ui/icons/Cancel';
-import { IconButton, makeStyles } from '@material-ui/core';
+
+import SentimentSatisfiedOutlinedIcon from '@material-ui/icons/SentimentSatisfiedOutlined';
+import SentimentDissatisfiedOutlinedIcon from '@material-ui/icons/SentimentDissatisfiedOutlined';
+
+import { Button, makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import { getMoviesFromRes } from '../../shared/format.util';
 import Loading from '../../components/Loading';
 
 const useStyles = makeStyles({
-  like: {
-    color: '#3bb73b',
-    marginRight: '3rem',
+  button: {
+    color: '#fff',
+    marginBottom: '8px',
+    width: '80%',
   },
+
   icon: {
+    color: '#fff',
     fontSize: '4rem',
   },
 });
+
+const getBackgroundImgStyle = (url) => ({
+  backgroundImage: `url(${url})`,
+  backgroundSize: 'cover',
+
+  position: 'absolute',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+
+  filter: `grayscale(0.8) blur(10px)`,
+  zIndex: 5,
+});
+
+const getStyleByIndex = (movies, index) => {
+  const { imgUrl } = movies[index];
+  const backgroundStyle = getBackgroundImgStyle(imgUrl);
+  return backgroundStyle;
+};
 
 const HomePage = () => {
   const classes = useStyles();
@@ -26,12 +51,15 @@ const HomePage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [likedMovieIds, setLikedMovieIds] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [wrapperStyle, setWrapperStyle] = useState({});
 
   const fetchRandomMovies = async () => {
     try {
       const response = await sendRequest('POST', 'getRandom', null, null);
       const movies = getMoviesFromRes(response.data);
       setRandomMovies(movies);
+      const style = getStyleByIndex(movies, 0);
+      setWrapperStyle(style);
       sessionStorage.setItem('randomMovies', JSON.stringify(movies));
       setIsLoaded(true);
     } catch (err) {
@@ -49,6 +77,8 @@ const HomePage = () => {
       const randomMovies = JSON.parse(movies);
       setRandomMovies(randomMovies);
       const index = Number(activeIndex);
+      const style = getStyleByIndex(randomMovies, index);
+      setWrapperStyle(style);
       setActiveIndex(index);
       setIsLoaded(true);
     } else {
@@ -56,12 +86,16 @@ const HomePage = () => {
     }
   }, []);
 
-  const onLikeButtonClick = (event, id) => {
+  const onLikeButtonClick = (event) => {
     event.stopPropagation();
+
+    const { id } = randomMovies[activeIndex];
+
     if (!likedMovieIds.includes(id)) {
       const movieIds = [...likedMovieIds, id];
       setLikedMovieIds(movieIds);
     }
+
     goToNextMovie();
   };
 
@@ -90,6 +124,9 @@ const HomePage = () => {
     if (activeIndex < 15) {
       const nextIndex = activeIndex + 1;
       setActiveIndex(nextIndex);
+
+      const style = getStyleByIndex(randomMovies, nextIndex);
+      setWrapperStyle(style);
     } else {
       submitLikedMovies(likedMovieIds);
     }
@@ -104,50 +141,62 @@ const HomePage = () => {
 
   return (
     <section className="home-wrapper">
-      <h3>Do you like this movie?</h3>
-      {!isLoaded && <Loading />}
+      <div style={wrapperStyle}></div>
+      <section className="home-container">
+        {!isLoaded && <Loading />}
 
-      {randomMovies.length > 0 &&
-        randomMovies.map((movie, index) => {
-          return (
-            <div
-              className="movie-wrapper"
-              key={movie.name}
-              onClick={() => {
-                onViewDetailClick(movie.id, index);
-              }}
-              style={{
-                display: index === activeIndex ? 'block' : 'none',
-              }}
-            >
-              <img
-                className="movie-poster"
-                src={movie.imgUrl}
-                alt="movie poster"
-              />
-              <div className="movie-info">
+        {randomMovies.length > 0 &&
+          randomMovies.map((movie, index) => {
+            return (
+              <div
+                className="movie-wrapper"
+                key={movie.name}
+                onClick={() => {
+                  onViewDetailClick(movie.id, index);
+                }}
+                style={{
+                  display: index === activeIndex ? 'block' : 'none',
+                }}
+              >
                 <div className="movie-title">
                   {movie.name} ({movie.year})
                 </div>
-                <div className="movie-button">
-                  <IconButton
-                    className={classes.like}
-                    onClick={(e) => onLikeButtonClick(e, movie.id)}
-                  >
-                    <CheckCircleIcon className={classes.icon} />
-                  </IconButton>
-                  <IconButton
-                    className={classes.dislike}
-                    color="secondary"
-                    onClick={onDislikeButtonClick}
-                  >
-                    <CancelIcon className={classes.icon} />
-                  </IconButton>
-                </div>
+
+                <img
+                  className="movie-poster"
+                  src={movie.imgUrl}
+                  alt="movie poster"
+                />
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+
+        <div className="movie-button">
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            startIcon={
+              <SentimentSatisfiedOutlinedIcon className={classes.icon} />
+            }
+            onClick={onLikeButtonClick}
+          >
+            LIKE
+          </Button>
+
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            startIcon={
+              <SentimentDissatisfiedOutlinedIcon className={classes.icon} />
+            }
+            onClick={onDislikeButtonClick}
+          >
+            DISLIKE
+          </Button>
+        </div>
+      </section>
     </section>
   );
 };

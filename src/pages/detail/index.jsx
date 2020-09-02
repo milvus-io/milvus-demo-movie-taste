@@ -121,7 +121,7 @@ const DetailPage = () => {
               {detail.Released}
             </div>
 
-            <p>{detail.Plot}</p>
+            <p className="detail-plot">{detail.Plot}</p>
           </div>
         </section>
       )}

@@ -69,6 +69,7 @@ const RecommendPage = () => {
   /* fetch recommend movie list */
   useEffect(() => {
     const likedMovieIds = location.state.ids;
+
     if (likedMovieIds.length > 0) {
       fetchRecommendMovies(likedMovieIds);
     } else {
@@ -108,7 +109,7 @@ const RecommendPage = () => {
               onClick={() => onCardClick(movie)}
               style={{
                 backgroundImage: `url(${movie.imgUrl})`,
-                backgroudSize: 'cover',
+                backgroundSize: 'cover',
               }}
             >
               <div className="card-mask">

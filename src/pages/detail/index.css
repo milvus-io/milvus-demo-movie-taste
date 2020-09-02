@@ -15,14 +15,11 @@
   transform: scale(1);
 
   text-align: left;
-
-  height: 100vh;
 }
 
 .detail-hero {
   position: relative;
   flex: 40vh 0 0;
-  font-size: 0;
 }
 
 .detail-img {
@@ -37,7 +34,7 @@
   top: 0;
   right: 0;
   left: 0;
-  bottom: 0;
+  height: 40vh;
   background-color: #000;
   opacity: 0.5;
 }
@@ -65,7 +62,7 @@
 
 .detail-label {
   font-weight: 500;
-  color: #666;
+  color: #ebebeb;
   display: inline-block;
   margin-right: 0.5rem;
 }
@@ -90,4 +87,12 @@
 
 .detail-rating-votes {
   font-size: 0.8rem;
+}
+
+.detail-plot {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
